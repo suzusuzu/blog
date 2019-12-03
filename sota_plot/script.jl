@@ -78,6 +78,10 @@ end
 # dataframe
 df = reduce(vcat, DataFrame.(df_l)) 
 
-# plot
-scatter(df.evaluation_date , df.Number_of_params, ylabel = "Number of params(M)", legend = false)
-savefig("fig.png")
+# date(x), params(y)
+# scatter(df.evaluation_date , df.Number_of_params, ylabel = "Number of params(M)", legend = false)
+# savefig("fig.png")
+
+# rank(x), params(y)
+scatter(df.rank, df.Number_of_params, xlabel = "Rank", ylabel = "Number of params(M)", legend = false)
+savefig("rank_params.png")
