@@ -53,6 +53,7 @@ predict_model.add(Dense(1))
 predict_model.load_weights('model.hdf5')
 
 
+input_len = 30
 x_n = []
 xs = []
 ts = np.linspace(500, 1000, N)
@@ -60,24 +61,23 @@ for t in ts:
     tmp = triangle_wave(t)
     x_n.append(tmp)
     xs.append(tmp)
-xs = xs[:seq_len]
+xs = xs[:input_len]
 
 # test input
 for o in xs:
     p = predict_model.predict(np.asarray([o]).reshape(1, 1, 1))[0,0]
 
 # predict
-predict_len = 200
+predict_len = 100
 xs.append(p)
 for i in range(predict_len-1):
     p = predict_model.predict(np.asarray([p]).reshape(1, 1, 1))[0,0]
     xs.append(p)
 
 # plot predict
-plt.figure(figsize=(16, 4))
-plt.plot(xs[:seq_len], label='input value')
-plt.plot(np.arange(predict_len) + seq_len, x_n[seq_len:][:predict_len], label='true value')
-plt.plot(np.arange(predict_len) + seq_len, xs[seq_len:], label='lstm predict value')
+plt.plot(xs[:input_len], label='input value')
+plt.plot(np.arange(predict_len) + input_len, x_n[input_len:][:predict_len], label='true value')
+plt.plot(np.arange(predict_len) + input_len, xs[input_len:], label='lstm predict value')
 plt.xlabel('time')
 plt.legend(loc='upper right')
 plt.savefig('fig.png')
