@@ -20,4 +20,4 @@ AirPassengers %>%
     nnetar_box_cox = NNETAR(box_cox(value, 0.3))
   ) %>%
   forecast(h = "2 years") %>% 
-  autoplot(filter(as_tsibble(AirPassengers), year(index) > 1960), level = NULL)
+  autoplot(filter(as_tsibble(AirPassengers), year(index) > 1950), level = NULL)
